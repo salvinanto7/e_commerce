@@ -44,7 +44,7 @@ router.get('/add-products',(req,res)=>{
 
 router.post('/add-products',(req,res)=>{
   console.log(req.body);
-  console.log(req.body.description);
+  console.log(req.files);
 });
 module.exports = router;
   
