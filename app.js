@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var busboyparser=require('busboy-body-parser')
+
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
 const { extname } = require('path');
@@ -19,7 +21,7 @@ var forms = multer();
 
 //end of section 
 
-var db = require('./config/connection');
+// var db = require('./config/connection');
 
 var app = express();
 
@@ -29,16 +31,18 @@ app.set('view engine', 'hbs');
 
 app.engine('hbs',hbs.engine({extname:'hbs',defaultLayout:'layout',layoutsDir:__dirname + '/views/layout/',partialsDir:__dirname + '/views/partials'}));
 
+app.use(busboyparser())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-db.connect((err)=>{
-  if (err) console.log("Connection error"+err);
-  else console.log("Databse connection successfull");
-})
+
+// db.connect((err)=>{
+//   if (err) console.log("Connection error"+err);
+//   else console.log("Databse connection successfull");
+// })
 
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
