@@ -19,6 +19,8 @@ var forms = multer();
 
 //end of section 
 
+var db = require('./config/connection');
+
 var app = express();
 
 // view engine setup
@@ -32,6 +34,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+db.connect((err)=>{
+  if (err) console.log("Connection error"+err);
+  else console.log("Databse connection successfull");
+})
 
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
