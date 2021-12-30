@@ -8,7 +8,16 @@ var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
 const { extname } = require('path');
 var hbs = require('express-handlebars');
-var fileupload = require('express-fileupload')
+//var formidable = require('express-formidable');
+
+// added from stack for body-parser
+var bodyParser = require('body-parser');
+var multer = require('multer');
+var forms = multer();
+
+// apply them
+
+//end of section 
 
 var app = express();
 
@@ -26,7 +35,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
-app.use(fileupload());
+//app.use(formidable());
+
+app.use(bodyParser.json());
+app.use(forms.array()); 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(multer().array());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
