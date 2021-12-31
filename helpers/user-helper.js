@@ -12,10 +12,7 @@ module.exports={
                 console.log(data)
                 callback(data.insertedId.toString())
             
-            })
-
-            
-        
+            })      
         
    }
 }

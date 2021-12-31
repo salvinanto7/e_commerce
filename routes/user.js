@@ -1,5 +1,5 @@
 var express = require('express');
-const { response } = require('../app');
+//const { response } = require('../app');
 const productHelpers = require('../helpers/product-helpers');
 var router = express.Router();
 const userHelpers = require('../helpers/user-helper')
@@ -20,8 +20,11 @@ router.get('/signup',(req,res)=>{
 });
 
 router.post('/signup',(req,res)=>{
-  userHelpers.doSignup(req.body).then((data)=>{
-    console.log(data)
-  })
-})
+  console.log("post working")
+  userHelpers.doSignup(req.body,(data)=>{
+    console.log(data);
+    
+  });
+});
+
 module.exports = router;
