@@ -3,8 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+//var fileUpload = require('express-fileupload');
 
-var busboyparser=require('busboy-body-parser')
+var busboyparser=require('busboy-body-parser');
 
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
@@ -21,7 +22,7 @@ var forms = multer();
 
 //end of section 
 
-// var db = require('./config/connection');
+ var db = require('./config/connection');
 
 var app = express();
 
@@ -37,12 +38,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//app.use(fileUpload());
 
-
-// db.connect((err)=>{
-//   if (err) console.log("Connection error"+err);
-//   else console.log("Databse connection successfull");
-// })
+ db.connect((err)=>{
+   if (err) console.log("Connection error"+err);
+   else console.log("Databse connection successfull");
+ })
 
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
