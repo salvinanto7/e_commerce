@@ -12,7 +12,7 @@ var adminRouter = require('./routes/admin');
 const { extname } = require('path');
 var hbs = require('express-handlebars');
 //var formidable = require('express-formidable');
-
+var session = require('express-session')
 // added from stack for body-parser
 var bodyParser = require('body-parser');
 var multer = require('multer');
@@ -38,6 +38,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret:"Key",cookie:{maxAge:600000},resave:true,saveUninitialized:true}));
 //app.use(fileUpload());
 
  db.connect((err)=>{
